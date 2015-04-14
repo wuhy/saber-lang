@@ -43,7 +43,7 @@ define(function () {
             args = arguments;
             last = Date.now();
 
-            var isCallImmediate = wait <= 0 || immediate && !timer;
+            var isCallImmediate = wait <= 0 || (immediate && !timer);
 
             if (wait > 0 && !timer) {
                 timer = setTimeout(task, wait);

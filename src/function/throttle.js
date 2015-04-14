@@ -30,6 +30,7 @@ define(function () {
         var task = function () {
             last = options.leading === false ? 0 : Date.now();
             fn.apply(options.context || context, args);
+            timer = null;
         };
 
         return function () {
@@ -43,7 +44,7 @@ define(function () {
             }
 
             var remaining = wait - (now - last);
-            if (remaining <= 0 || remaining > wait) {
+            if (remaining <= 0) {
                 timer = clearTimeout(timer);
                 last = now;
                 fn.apply(options.context || context, args);

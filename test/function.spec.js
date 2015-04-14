@@ -88,6 +88,21 @@ define(function(require) {
                 expect(counter).toEqual(0);
             });
 
+            it('should call `fn` at end when `options.leading` is false with multi asyn call', function (done) {
+                var counter = 0;
+                var add = function () { counter++; };
+                var addThrottle = throttle(add, 20, {leading: false});
+
+                setTimeout(addThrottle, 10);
+                setTimeout(addThrottle, 40);
+
+                setTimeout(function () {
+                    expect(counter).toEqual(2);
+                    done();
+                }, 150);
+
+                expect(counter).toEqual(0);
+            });
 
             it('should call `fn` at end when `options.leading` is false', function (done) {
                 var counter = 0;
